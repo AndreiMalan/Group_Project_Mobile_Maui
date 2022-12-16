@@ -20,5 +20,21 @@ public partial class ListPage : ContentPage
         await App.Database.DeleteCityListAsync(slist);
         await Navigation.PopAsync();
     }
+    async void OnChooseButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new DestinationPage((CityList)
+       this.BindingContext)
+        {
+            BindingContext = new Destination()
+        });
+
+    }
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        var cityl = (CityList)BindingContext;
+
+        listView.ItemsSource = await App.Database.GetListDestinationsAsync(cityl.ID);
+    }
 
 }
