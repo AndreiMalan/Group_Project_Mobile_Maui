@@ -22,7 +22,11 @@
         <ShellContent
             Title="My Cities Lists"
             ContentTemplate="{DataTemplate local:ListEntryPage}"
- />
+        />
+        <ShellContent
+            Title="My Cities"
+            ContentTemplate="{DataTemplate local:CityEntryPage}"
+        />
     </TabBar>
 
 </Shell>

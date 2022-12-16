@@ -18,6 +18,7 @@ namespace Proiect_Mobile_Maui_Onetiu_Malan.Data
             _database.CreateTableAsync<CityList>().Wait();
             _database.CreateTableAsync<Destination>().Wait();
             _database.CreateTableAsync<ListDestination>().Wait();
+            _database.CreateTableAsync<City>().Wait();
         }
         public Task<List<CityList>> GetCityListsAsync()
         {
@@ -82,5 +83,21 @@ namespace Proiect_Mobile_Maui_Onetiu_Malan.Data
             + " on D.ID = LD.DestinationID where LD.CityListID = ?",
             citylistid);
         }
+        public Task<List<City>> GetCitiesAsync()
+        {
+            return _database.Table<City>().ToListAsync();
+        }
+        public Task<int> SaveCityAsync(City city)
+        {
+            if (city.ID != 0)
+            {
+                return _database.UpdateAsync(city);
+            }
+            else
+            {
+                return _database.InsertAsync(city);
+            }
+        }
+
     }
 }

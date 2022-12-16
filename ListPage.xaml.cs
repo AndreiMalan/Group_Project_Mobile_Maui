@@ -11,6 +11,8 @@ public partial class ListPage : ContentPage
     {
         var slist = (CityList)BindingContext;
         slist.Date = DateTime.UtcNow;
+        City selectedCity = (CityPicker.SelectedItem as City);
+        slist.CityID = selectedCity.ID;
         await App.Database.SaveCityListAsync(slist);
         await Navigation.PopAsync();
     }
@@ -32,6 +34,9 @@ public partial class ListPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+        var items = await App.Database.GetCitiesAsync();
+        CityPicker.ItemsSource = (System.Collections.IList)items;
+        CityPicker.ItemDisplayBinding = new Binding("CityDetails");
         var cityl = (CityList)BindingContext;
 
         listView.ItemsSource = await App.Database.GetListDestinationsAsync(cityl.ID);

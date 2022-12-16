@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SQLite;
-
+using SQLiteNetExtensions.Attributes;
 
 namespace Proiect_Mobile_Maui_Onetiu_Malan.Models
 {
@@ -16,6 +16,8 @@ namespace Proiect_Mobile_Maui_Onetiu_Malan.Models
         [MaxLength(250), Unique]
         public string Description { get; set; }
         public DateTime Date { get; set; }
+        [ForeignKey(typeof(City))]
+        public int CityID { get; set; }
 
     }
 }
